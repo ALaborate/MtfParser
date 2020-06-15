@@ -9,11 +9,13 @@ with open('report.txt', 'rb') as file:
             questionIndexes.append(i)
 
 index = random.randint(0, len(questionIndexes)-2)
+answerChecker = re.compile(r'Верны\w ответ\w?')
 for line in content[questionIndexes[index]:questionIndexes[index+1]]:
-    if not 'Верный ответ' in line:
-        print(line)
-    else:
+    match = answerChecker.search(line)
+    if match:
         answer = line
+    else:
+        print(line)
 
 input("Press enter to show the answer.")
 print(answer)
